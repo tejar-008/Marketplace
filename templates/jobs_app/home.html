@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'jobs_app/index.html' %}
+{% load static %}
+{% block content %}
+<body>
+{% if user.is_authenticated %}
+    <div class="page-container">
+        <h2 class="top-menu">Hello {{ user.username }},</h2>
+        <p>Please choose from below options.</p>
+    </div>
+{% endif %}
+<div class="content container">
+    <div class="row"> <div class="col-md-12">
+        <div class="links">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                        <img src="{% static "images/Marketplace.png" %}" alt="customer"/>
+                        <div class="caption">
+                            <h2>Job Vacancies</h2>
+                            <p>Place for all kinds of job postings</p>
+                            <p><a class="btn btn-primary" href="{% url 'jobs_app:customer_list' %}" role="button">View details &raquo;</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                        <img src="{% static "images/Candidate.jpg" %}" alt="cupcakes"/>
+                        <div class="caption">
+                            <h2>Candidate Profiles</h2>
+                            <p>Actively Looking for Job Opportunities</p>
+                            <p><a class="btn btn-primary" href="{% url 'jobs_app:service_list' %}" role="button">View details &raquo;</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                        <img src="{% static "images/skillstraining.jpg" %}" alt="lunch"/>
+                        <div class="caption"> <h2>Products</h2>
+                            <p>Great Place for skill enhancement.</p>
+                            <p><a class="btn btn-primary" href="{% url 'jobs_app:product_list' %}" role="button">View details &raquo;</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+{% endblock %}
+</html>
