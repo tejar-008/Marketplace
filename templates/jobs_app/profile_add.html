@@ -1,0 +1,90 @@
+{% extends 'jobs_app/base.html' %}
+{% block body_content %}
+<h2 class="text-center">Add Profile</h2>
+<form enctype="multipart/form-data" action="" method="post" id="candidatesprofile_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="e08EvMnekKcHze6nBOHzl6jE2Zi03YklvYk94EFPfcerEZWbYU7YgkPhAk4DKBC1">
+    <div>
+        <fieldset class="module aligned ">
+            <div class="form-row field-user">
+                <div>
+                    <label class="required" for="id_user">User:</label>
+                    <div class="related-widget-wrapper">
+                        <select name="user" required="" id="id_user">
+                            <option value="" selected="">---------</option>
+                            <option value="1">mp@mp.com</option>
+                        </select>
+                        <a class="related-widget-wrapper-link change-related" id="change_id_user" data-href-template="/admin/jobs_app/user/__fk__/change/?_to_field=id&amp;_popup=1" title="Change selected User"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_user" href="/admin/jobs_app/user/add/?_to_field=id&amp;_popup=1" title="Add another User"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row field-technology">
+                <div>
+                    <label class="required" for="id_technology">Technology:</label>
+                    <div class="related-widget-wrapper">
+                        <select name="technology" required="" id="id_technology" multiple="">
+                            <option value="1">Python</option>
+                            <option value="2">Java</option>
+                            <option value="3">Django</option>
+                            <option value="4">qwert</option>
+                        </select>
+                        <a class="related-widget-wrapper-link add-related" id="add_id_technology" href="/admin/jobs_app/skill/add/?_to_field=id&amp;_popup=1" title="Add another skill"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+                    </div>
+                    <div class="help">Hold down “Control”, or “Command” on a Mac, to select more than one.</div>
+                </div>
+            </div>
+            <div class="form-row field-title">
+                <div>
+                    <label class="required" for="id_title">Title:</label>
+                    <div class="related-widget-wrapper">
+                        <select name="title" required="" id="id_title" multiple="">
+                        	{% for title in titles %}
+                        		<option value="{{title.id}}">{{title}}</option>	
+                        	{% endfor %}
+                            <option value="1">Django developer</option>
+                            <option value="2">Java developer</option>
+                            <option value="3">Python Developer</option>
+                            <option value="4">qqq</option>
+                            <option value="5">qaz</option>
+                            <option value="6">1</option>
+                        </select>
+                        <a class="related-widget-wrapper-link add-related" id="add_id_title" href="/admin/jobs_app/job/add/?_to_field=id&amp;_popup=1" title="Add another job"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+                    </div>
+                    <div class="help">Hold down “Control”, or “Command” on a Mac, to select more than one.</div>
+                </div>
+            </div>
+            <div class="form-row field-experience">
+                <div>
+                    <label for="id_experience">Experience:</label>
+                    <textarea name="experience" cols="40" rows="10" class="vLargeTextField" id="id_experience"></textarea>
+                </div>
+            </div>
+            <div class="form-row field-resume">
+                <div>
+                    <label class="required" for="id_resume">Resume:</label>
+                    <input type="file" name="resume" id="id_resume">
+                </div>
+            </div>
+            <div class="form-row field-description">
+                <div>
+                    <label for="id_description">Description:</label>
+                    <textarea name="description" cols="40" rows="10" class="vLargeTextField" id="id_description"></textarea>
+                </div>
+            </div>
+            <div class="form-row field-specializedIn">
+                <div>
+                    <label for="id_specializedIn">SpecializedIn:</label>
+                    <textarea name="specializedIn" cols="40" rows="10" class="vLargeTextField" id="id_specializedIn"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="submit-row">
+            <input type="submit" value="Save" class="default" name="_save">
+            <input type="submit" value="Save and add another" name="_addanother">
+            <input type="submit" value="Save and continue editing" name="_continue">
+        </div>
+        <script type="text/javascript" id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" data-model-name="candidatesprofile">
+        </script>
+        <script type="text/javascript" id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
+        </script>
+    </div>
+</form>
+{% endblock body_content%}

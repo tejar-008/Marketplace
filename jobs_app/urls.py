@@ -15,6 +15,9 @@ urlpatterns = [
     path("candidate/list/", candidate_list, name="candidate_list"),
     path("skills/list/", skills_list, name="skills_list"),
     path("profile/", profile, name="profile"),
+    path("profile/add/", add_profile, name="add_profile"),
+    path("jobs/add/", add_job, name="add_job"),
+    path("skill/add/", add_skill, name="add_skill"),
     
     # path("list/", profile_list, name="admin_homepage"),
 

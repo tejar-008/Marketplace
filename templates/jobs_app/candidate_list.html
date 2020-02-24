@@ -1,14 +1,16 @@
 {% extends 'jobs_app/base.html' %} 
 {% block body_content %}
+<h2 class="text-center">Candidate's List</h2>
+<h3 class="text-right"><a href="{% url 'jobs_app:add_profile' %}" >+ Add Candidate</a></h3>
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Candidate Name</th>
-      <th scope="col">Specialized In</th>
+      <th scope="col">Tech Known</th>
+      <th scope="col">Job Title</th>
       <th scope="col">Description</th>
       <th scope="col">Experience</th>
-      <th scope="col">Tech Known</th>
     </tr>
   </thead>
   <tbody>
@@ -17,10 +19,10 @@
     <tr>
       <td>{{candidate.id}}</td>
       <td>{{candidate.user.full_name}}</td>
-      <td>{{candidate.specializationinProfession}}</td>
+      <td>{% for tech in candidate.technology.all %}<span class="badge badge-primary">{{tech}}</span>   {%endfor%}</td>
+      <td>{% for role in candidate.title.all %}<span class="badge badge-success">{{role}}</span>   {%endfor%}</td>
       <td>{{candidate.description}}</td>
       <td>{{candidate.experience}}</td>
-      <td>{{candidate.technology}}</td>
     </tr>
     {% endfor %}
   </tbody>

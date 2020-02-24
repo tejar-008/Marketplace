@@ -27,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def full_name(self):
         return self.get_full_name()
-    
+
 
     def get_full_name(self):
         full_name = None
@@ -51,8 +51,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Users"
 
 
-class JobListing(models.Model):
-    jobid = models.CharField(max_length=50, unique=True,)
+class Job(models.Model):
+    # jobid = models.CharField(max_length=50, unique=True,)
     title = models.TextField(null=True, blank=False)
     description = models.TextField(null=True, blank=True)
 
@@ -60,8 +60,7 @@ class JobListing(models.Model):
         return str(self.title)
 
 
-class SkillSetTrainingModules(models.Model):
-    skillid = models.CharField(max_length=50, unique=True, )
+class Skill(models.Model):
     technology = models.TextField(null=True, blank=False)
     description = models.TextField(null=True, blank=True)
     courseDuration = models.TextField(null=True, blank=True)
@@ -73,11 +72,11 @@ class SkillSetTrainingModules(models.Model):
 
 class CandidatesProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student')
-    specializationinProfession = models.TextField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    technology = models.ManyToManyField(Skill, related_name='skillset',)
+    title = models.ManyToManyField(Job, related_name='job')
     experience = models.TextField(null=True, blank=True)
     resume = models.FileField(upload_to='resume', default='0')
-    title = models.ForeignKey(JobListing, related_name='job', on_delete=models.SET_NULL, null=True)
-    technology = models.ForeignKey(SkillSetTrainingModules, on_delete=models.SET_NULL, null=True, related_name='skillset',)
+    description = models.TextField(null=True, blank=True)
+    specializedIn = models.TextField(null=True, blank=True)
 
     # Create your models here.
