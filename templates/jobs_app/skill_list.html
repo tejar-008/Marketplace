@@ -21,7 +21,7 @@
       <td>{{skill.description}}</td>
       <td>{{skill.courseDuration}}</td>
       <td>{{skill.price}}</td>
-      <td><a href="{% url 'jobs_app:delete_skill' id=skill.id %}">Delete</a></td>
+      <td><a href="{% url 'jobs_app:delete_skill' id=skill.id %}">Delete</a>  <a href="{% url 'jobs_app:edit_skill' id=skill.id %}">Edit</a></td>
     </tr>
     {% endfor %}
   </tbody>

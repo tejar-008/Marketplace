@@ -24,7 +24,7 @@
       <td>{% for role in candidate.title.all %}<span class="badge badge-success">{{role}}</span>   {%endfor%}</td>
       <td>{{candidate.description}}</td>
       <td>{{candidate.experience}}</td>
-      <td><a href="{% url 'jobs_app:delete_profile' id=candidate.id %}">Delete</a></td>
+      <td><a href="{% url 'jobs_app:delete_profile' id=candidate.id %}">Delete</a><a href="{% url 'jobs_app:edit_profile' id=candidate.id %}">Edit</a></td>
     </tr>
     {% endfor %}
   </tbody>

@@ -18,6 +18,7 @@
       <td>{{job.title}}</td>
       <td>{{job.description}}</td>
       <td><a href="{% url 'jobs_app:delete_job' id=job.id %}">Delete</a></td>
+      <td><a href="{% url 'jobs_app:delete_job' id=job.id %}">Delete</a>  <a href="{% url 'jobs_app:edit_job' id=job.id %}">Edit</a></td>
     </tr>
     {% endfor %}
   </tbody>

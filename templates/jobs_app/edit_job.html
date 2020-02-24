@@ -1,0 +1,26 @@
+{% extends 'jobs_app/base.html' %} 
+{% block body_content %}
+<h2 class="text-center">Edit Job-{{job.title}}</h2>
+<div class="text-center">
+<form action="." method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="title" name="title">Title</label>
+    <textarea name="title" cols="40" rows="1" class="vLargeTextField" required="" id="id_title">{{job.title}}</textarea>
+  </div>
+  {% if 'title' in errors %}
+    <ul class="errorlist">
+        <span style="color:Red">{{errors.title}}</span>
+    </ul>
+    {% endif %}
+  <div class="form-group">
+    <label for="description" name='description'>Description</label>
+    <textarea name="description" cols="40" rows="3" class="vLargeTextField" id="id_description">{{job.description}}</textarea>
+  </div>
+  <div class="form-group">
+    <p><input type="submit" value="Add Job"></p>
+  </div>
+  
+</form>
+</div>
+{%endblock body_content%}

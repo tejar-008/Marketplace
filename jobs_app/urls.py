@@ -22,6 +22,9 @@ urlpatterns = [
     path("profile/delete/<int:id>/", delete_profile, name="delete_profile"),
     path("jobs/delete/<int:id>/", delete_job, name="delete_job"),
     path("skill/delete/<int:id>/", delete_skill, name="delete_skill"),
+    path("skill/edit/<int:id>/", edit_skill, name="edit_skill"),
+    path("jobs/edit/<int:id>/", edit_job, name="edit_job"),
+    path("profile/edit/<int:id>/", edit_profile, name="edit_profile"),
     
     # path("list/", profile_list, name="admin_homepage"),
 

@@ -8,6 +8,7 @@ from django.shortcuts import (
     redirect,
     render,
     reverse,
+    get_object_or_404
 )
 from jobs_app.forms import *
 from django.contrib.auth.forms import PasswordChangeForm
@@ -119,6 +120,25 @@ def add_profile(request):
             request, "jobs_app/profile_add.html", {"form": form, "errors": form.errors}
         )
 
+
+@login_required(login_url='/login/')
+def edit_profile(request, id):
+    profile = CandidatesProfile.objects.get(id=id)
+    if request.method == 'GET':
+        form = ProfileForm(instance=profile)
+        return render(request, "jobs_app/profile_add.html", {"form": form, "profile": profile})
+    if request.method == 'POST':
+        form = ProfileForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(
+                reverse("jobs_app:candidate_list",)
+            )
+        return render(
+            request, "jobs_app/profile_add.html", {"form": form, "errors": form.errors}
+        )
+
+
 @login_required(login_url='/login/')
 def add_skill(request):
     if request.method == 'GET':
@@ -133,6 +153,25 @@ def add_skill(request):
             )
         return render(
             request, "jobs_app/add_skill.html", {"form": form, "errors": form.errors}
+        )
+
+
+@login_required(login_url='/login/')
+def edit_skill(request, id):
+    skill = get_object_or_404(Skill, id=id)
+    print(skill.__dict__)
+    if request.method == 'GET':
+        form = SkillForm(instance=skill)
+        return render(request, "jobs_app/edit_skill.html", {"form": form, "skill": skill})
+    if request.method == 'POST':
+        form = SkillForm(data=request.POST, instance=skill)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(
+                reverse("jobs_app:skills_list",)
+            )
+        return render(
+            request, "jobs_app/edit_skill.html", {"form": form, "errors": form.errors}
         )
 
 
@@ -152,7 +191,26 @@ def add_job(request):
             request, "jobs_app/add_job.html", {"form": form, "errors": form.errors}
         )
 
-@login_required
+
+@login_required(login_url='/login/')
+def edit_job(request, id):
+    job = get_object_or_404(Job, id=id)
+    if request.method == 'GET':
+        form = JobForm(instance=job)
+        return render(request, "jobs_app/edit_job.html", {"form": form, 'job': job})
+    if request.method == 'POST':
+        form = JobForm(data=request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(
+                reverse("jobs_app:jobs_list",)
+            )
+        return render(
+            request, "jobs_app/edit_job.html", {"form": form, "errors": form.errors}
+        )
+
+
+@login_required(login_url='/login/')
 def add_user(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -166,16 +224,22 @@ def add_user(request):
 
     return render(request, 'jobs_app/add_user.html', {'form': form})
 
+
+@login_required(login_url='/login/')
 def delete_skill(request, id):
     skill = Skill.objects.filter(id=id)
     skill.delete()
     return HttpResponseRedirect(reverse("jobs_app:skills_list",))
 
+
+@login_required(login_url='/login/')
 def delete_profile(request, id):
     candidate = CandidatesProfile.objects.filter(id=id)
     candidate.delete()
     return HttpResponseRedirect(reverse("jobs_app:candidate_list",))
 
+
+@login_required(login_url='/login/')
 def delete_job(request, id):
     job = Job.objects.filter(id=id)
     job.delete()
