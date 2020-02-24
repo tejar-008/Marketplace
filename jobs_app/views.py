@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import (
     # HttpResponse,
@@ -53,7 +54,7 @@ def user_login(request):
                 request, "registration/login.html", {"errors": form.errors}
             )
 
-
+@login_required(login_url='/login/')
 def change_password(request):
     form = PasswordChangeForm(user=request.user, data=request.POST)
     if request.method == 'GET':
@@ -67,28 +68,28 @@ def change_password(request):
         request, "registration/password_change_done.html", {"errors": form.errors}
     )
 
-
+@login_required(login_url='/login/')
 def jobs_list(request):
     all_jobs = JobListing.objects.all()
     return render(
         request, "jobs_app/jobs_list.html", {"all_jobs": all_jobs, "job_active": "active"}
     )
 
-
+@login_required(login_url='/login/')
 def skills_list(request):
     all_skills = SkillSetTrainingModules.objects.all()
     return render(
         request, "jobs_app/skill_training_list.html", {"all_skills": all_skills, "skill_active": "active"}
     )
 
-
+@login_required(login_url='/login/')
 def candidate_list(request):
     all_candidates = CandidatesProfile.objects.all()
     return render(
         request, "jobs_app/candidate_list.html", {"all_candidates": all_candidates, "candidate_active": "active"}
     )
 
-
+@login_required(login_url='/login/')
 def profile(request):
     user = request.user
     profile = CandidatesProfile.objects.filter(user=user)
