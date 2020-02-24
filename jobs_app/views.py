@@ -9,8 +9,7 @@ from django.shortcuts import (
     reverse,
 )
 from jobs_app.forms import *
-
-# Create your views here.
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def homepage(request):
@@ -31,11 +30,9 @@ def user_login(request):
     if request.method == "POST":
         form = UserLoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get("username")
+            email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
-            print(password)
-            # import pdb; pdb.set_trace()
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=email, password=password)
             if user is None:
                 print(user)
                 return render(
@@ -45,6 +42,7 @@ def user_login(request):
                 )
 
             elif user is not None:
+                print('not none')
                 login(request, user)
                 return HttpResponseRedirect(
                     reverse("jobs_app:homepage",)
@@ -54,3 +52,16 @@ def user_login(request):
                 request, "registration/login.html", {"errors": form.errors}
             )
 
+
+def change_password(request):
+    form = PasswordChangeForm(user=request.user, data=request.POST)
+    if request.method == 'GET':
+        return render(request, "registration/password_change_form.html", {"form": form})
+    if form.is_valid():
+        form.save()
+        return render(
+            request, "registration/password_change_done.html", {}
+        )
+    return render(
+        request, "registration/password_change_done.html", {"errors": form.errors}
+    )

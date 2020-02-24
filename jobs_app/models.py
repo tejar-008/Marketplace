@@ -68,6 +68,7 @@ class SkillSetTrainingModules(models.Model):
 
 
 class CandidatesProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student')
     specializationinProfession = models.TextField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     experience = models.TextField(null=True, blank=True)

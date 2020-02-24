@@ -7,11 +7,10 @@ from jobs_app.views import *
 
 app_name = "jobs_app"
 urlpatterns = [
-    path("", homepage, name="homepage"),
-    # path("list/", profile_list, name="admin_homepage"),
-    # path("", profile_view, name="admin_homepage"),
-    path("logout/", user_logout, name="user_logout"),
     path("login/", user_login, name="user_login"),
-
+    path("logout/", user_logout, name="user_logout"),
+    path("", homepage, name="homepage"),
+    path("change-password/", change_password, name="change_password"),
+    # path("list/", profile_list, name="admin_homepage"),
 
 ]
