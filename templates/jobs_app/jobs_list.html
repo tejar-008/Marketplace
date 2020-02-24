@@ -7,6 +7,7 @@
       <th scope="col">Job ID</th>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
+      <th scope="col">Action(Delete)</th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,7 @@
       <td>{{job.id}}</td>
       <td>{{job.title}}</td>
       <td>{{job.description}}</td>
+      <td><a href="{% url 'jobs_app:delete_job' id=job.id %}">Delete</a></td>
     </tr>
     {% endfor %}
   </tbody>

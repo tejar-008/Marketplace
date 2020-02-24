@@ -18,6 +18,10 @@ urlpatterns = [
     path("profile/add/", add_profile, name="add_profile"),
     path("jobs/add/", add_job, name="add_job"),
     path("skill/add/", add_skill, name="add_skill"),
+    path("user/add/", add_user, name="add_user"),
+    path("profile/delete/<int:id>/", delete_profile, name="delete_profile"),
+    path("jobs/delete/<int:id>/", delete_job, name="delete_job"),
+    path("skill/delete/<int:id>/", delete_skill, name="delete_skill"),
     
     # path("list/", profile_list, name="admin_homepage"),
 

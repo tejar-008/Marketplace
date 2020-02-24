@@ -71,7 +71,7 @@ class Skill(models.Model):
 
 
 class CandidatesProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student')
     technology = models.ManyToManyField(Skill, related_name='skillset',)
     title = models.ManyToManyField(Job, related_name='job')
     experience = models.TextField(null=True, blank=True)

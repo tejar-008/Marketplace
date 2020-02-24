@@ -11,6 +11,7 @@
       <th scope="col">Job Title</th>
       <th scope="col">Description</th>
       <th scope="col">Experience</th>
+      <th scope="col">Action(Delete)</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,7 @@
       <td>{% for role in candidate.title.all %}<span class="badge badge-success">{{role}}</span>   {%endfor%}</td>
       <td>{{candidate.description}}</td>
       <td>{{candidate.experience}}</td>
+      <td><a href="{% url 'jobs_app:delete_profile' id=candidate.id %}">Delete</a></td>
     </tr>
     {% endfor %}
   </tbody>

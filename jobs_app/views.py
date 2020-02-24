@@ -11,6 +11,8 @@ from django.shortcuts import (
 )
 from jobs_app.forms import *
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 def homepage(request):
@@ -20,7 +22,6 @@ def homepage(request):
 
 
 def user_logout(request):
-    print('logout')
     logout(request)
     return redirect(reverse("jobs_app:user_login"))
 
@@ -36,7 +37,6 @@ def user_login(request):
             password = form.cleaned_data.get("password")
             user = authenticate(email=email, password=password)
             if user is None:
-                print(user)
                 return render(
                     request,
                     "registration/login.html",
@@ -44,7 +44,6 @@ def user_login(request):
                 )
 
             elif user is not None:
-                print('not none')
                 login(request, user)
                 return HttpResponseRedirect(
                     reverse("jobs_app:homepage",)
@@ -66,7 +65,6 @@ def change_password(request):
             return render(
                 request, "registration/password_change_done.html", {}
             )
-        print(form.errors)
         return render(
             request, "registration/password_change_form.html", {"errors": form.errors}
         )
@@ -107,15 +105,19 @@ def profile(request):
 
 @login_required(login_url='/login/')
 def add_profile(request):
-    form = ProfileForm()
-    return render(request, "jobs_app/profile_add.html", {"form": form})
+    if request.method == 'GET':
+        form = ProfileForm()
+        return render(request, "jobs_app/profile_add.html", {"form": form})
     if request.method == 'POST':
-        form = ProfileForm(user=request.user, data=request.POST)
+        form = ProfileForm(data=request.POST)
         if form.is_valid():
-            print('yooo')
-        print(form.errors)
-        return render(request, "jobs_app/profile_add.html", {"form": form, 'errors': form.errors})
-
+            form.save()
+            return HttpResponseRedirect(
+                reverse("jobs_app:candidate_list",)
+            )
+        return render(
+            request, "jobs_app/profile_add.html", {"form": form, "errors": form.errors}
+        )
 
 @login_required(login_url='/login/')
 def add_skill(request):
@@ -126,18 +128,16 @@ def add_skill(request):
         form = SkillForm(data=request.POST)
         if form.is_valid():
             form.save()
-            print('yesss')
             return HttpResponseRedirect(
-                    reverse("jobs_app:skills_list",)
-                )
-        print(form.errors)
+                reverse("jobs_app:skills_list",)
+            )
         return render(
             request, "jobs_app/add_skill.html", {"form": form, "errors": form.errors}
         )
 
+
 @login_required(login_url='/login/')
 def add_job(request):
-    print('job')
     if request.method == 'GET':
         form = JobForm()
         return render(request, "jobs_app/add_job.html", {"form": form})
@@ -145,11 +145,38 @@ def add_job(request):
         form = JobForm(data=request.POST)
         if form.is_valid():
             form.save()
-            print('yesss')
             return HttpResponseRedirect(
-                    reverse("jobs_app:jobs_list",)
-                )
-        print(form.errors)
+                reverse("jobs_app:jobs_list",)
+            )
         return render(
             request, "jobs_app/add_job.html", {"form": form, "errors": form.errors}
         )
+
+@login_required
+def add_user(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            # login(new_user)
+            # redirect, or however you want to get to the main view
+            return HttpResponseRedirect(reverse("jobs_app:candidate_list",))
+    else:
+        form = UserForm()
+
+    return render(request, 'jobs_app/add_user.html', {'form': form})
+
+def delete_skill(request, id):
+    skill = Skill.objects.filter(id=id)
+    skill.delete()
+    return HttpResponseRedirect(reverse("jobs_app:skills_list",))
+
+def delete_profile(request, id):
+    candidate = CandidatesProfile.objects.filter(id=id)
+    candidate.delete()
+    return HttpResponseRedirect(reverse("jobs_app:candidate_list",))
+
+def delete_job(request, id):
+    job = Job.objects.filter(id=id)
+    job.delete()
+    return HttpResponseRedirect(reverse("jobs_app:jobs_list",))
