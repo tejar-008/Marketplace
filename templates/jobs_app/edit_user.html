@@ -1,9 +1,9 @@
 {% extends 'jobs_app/base.html' %}
 {% block body_content %}
-<h2 class="text-center">Add User</h2>
+<h2 class="text-center">Edit User</h2>
 <form method="post" action="">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Create new user account" />
+    <input type="submit" value="Update user" />
 </form>
 {% endblock body_content %}

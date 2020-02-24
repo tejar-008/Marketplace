@@ -25,6 +25,7 @@ urlpatterns = [
     path("skill/edit/<int:id>/", edit_skill, name="edit_skill"),
     path("jobs/edit/<int:id>/", edit_job, name="edit_job"),
     path("profile/edit/<int:id>/", edit_profile, name="edit_profile"),
+    path("user/edit/<int:id>/", edit_user, name="edit_user"),
     
     # path("list/", profile_list, name="admin_homepage"),
 

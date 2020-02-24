@@ -226,6 +226,22 @@ def add_user(request):
 
 
 @login_required(login_url='/login/')
+def edit_user(request, id):
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            # login(new_user)
+            # redirect, or however you want to get to the main view
+            return HttpResponseRedirect(reverse("jobs_app:candidate_list",))
+    else:
+        form = UserForm(instance=user)
+
+    return render(request, 'jobs_app/add_user.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def delete_skill(request, id):
     skill = Skill.objects.filter(id=id)
     skill.delete()
