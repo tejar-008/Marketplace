@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import JobListing, CandidatesProfile
-from django.contrib.auth import authenticate, login
+from .models import *
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import (
     # HttpResponse,
     HttpResponseRedirect,
@@ -15,12 +15,13 @@ from django.contrib.auth.forms import PasswordChangeForm
 def homepage(request):
     job_listings = JobListing.objects.all()
     candidatesprofile = CandidatesProfile.objects.all()
-    return render(request, "jobs_app/index.html", {'candidatesprofile': candidatesprofile})
+    return render(request, "jobs_app/index.html", {'candidatesprofile': candidatesprofile, "home_active": "active"})
 
 
 def user_logout(request):
+    print('logout')
     logout(request)
-    return redirect(reverse("common:index"))
+    return redirect(reverse("jobs_app:user_login"))
 
 
 def user_login(request):
@@ -64,4 +65,33 @@ def change_password(request):
         )
     return render(
         request, "registration/password_change_done.html", {"errors": form.errors}
+    )
+
+
+def jobs_list(request):
+    all_jobs = JobListing.objects.all()
+    return render(
+        request, "jobs_app/jobs_list.html", {"all_jobs": all_jobs, "job_active": "active"}
+    )
+
+
+def skills_list(request):
+    all_skills = SkillSetTrainingModules.objects.all()
+    return render(
+        request, "jobs_app/skill_training_list.html", {"all_skills": all_skills, "skill_active": "active"}
+    )
+
+
+def candidate_list(request):
+    all_candidates = CandidatesProfile.objects.all()
+    return render(
+        request, "jobs_app/candidate_list.html", {"all_candidates": all_candidates, "candidate_active": "active"}
+    )
+
+
+def profile(request):
+    user = request.user
+    profile = CandidatesProfile.objects.filter(user=user)
+    return render(
+        request, "jobs_app/profile.html", {"profile": profile, "candidate_active": "active"}
     )

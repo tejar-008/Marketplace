@@ -11,6 +11,11 @@ urlpatterns = [
     path("logout/", user_logout, name="user_logout"),
     path("", homepage, name="homepage"),
     path("change-password/", change_password, name="change_password"),
+    path("jobs/list/", jobs_list, name="jobs_list"),
+    path("candidate/list/", candidate_list, name="candidate_list"),
+    path("skills/list/", skills_list, name="skills_list"),
+    path("profile/", profile, name="profile"),
+    
     # path("list/", profile_list, name="admin_homepage"),
 
 ]

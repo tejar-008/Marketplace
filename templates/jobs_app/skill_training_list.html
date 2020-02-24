@@ -1,0 +1,29 @@
+{% extends 'jobs_app/base.html' %} 
+{% block body_content %}
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Skill ID</th>
+      <th scope="col">Technology</th>
+      <th scope="col">Description</th>
+      <th scope="col">Course Duration</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for skill in all_skills %}
+      
+    <tr>
+      <td>{{skill.id}}</td>
+      <td>{{skill.skillid}}</td>
+      <td>{{skill.technology}}</td>
+      <td>{{skill.description}}</td>
+      <td>{{skill.courseDuration}}</td>
+      <td>{{skill.price}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock body_content %}

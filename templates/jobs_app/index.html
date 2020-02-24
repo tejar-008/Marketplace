@@ -1,91 +1,6 @@
-<!DOCTYPE html>
+{% extends 'jobs_app/base.html' %} 
+{% block body_content %}
 {% load static %}
-
-<html lang="en">
-
-<head>
-    <title>Professional Market Place</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar{
-            margin-bottom: 0;
-            border-radius: 0;
-            }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: 450px
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #ff1144;
-            height: 100%;
-        }
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-
-            .row.content {
-                height: auto;
-            }
-        }
-
-    </style>
-</head>
-<body id="app-layout">
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#myNavbar">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Branding Image -->
-            <a class="navbar-brand" href="/">
-                Professional Market Place
-            </a>
-        </div>
-
-
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <span class="caret"></span>
-                        logout</a>
-
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'jobs_app:user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                {% endif %}
-            </ul>
-
-</nav>
 <div class="content container">
     <div class="row">
         <div class="col-md-8">
@@ -95,9 +10,10 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="thumbnail">
-                            <img src="{% static "images/Marketplace.png" %}" alt="marketplace"/>
+                            <!-- <img src="{% static "images/Marketplace.png" %}" alt="marketplace"/> -->
                             <div class="caption">
-                                <h2>Job Vacancies</h2>
+                                <a href="{% url 'jobs_app:jobs_list'%}">
+                                <h2>Job Vacancies</h2></a>
                                 <p>Hiring the correct Candidates for the position is the ultimate Goal </p>
 
                             </div>
@@ -105,9 +21,10 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                     </div>
                     <div class="col-md-3">
                         <div class="thumbnail">
-                            <img src="{% static "images/Candidate.jpg" %}" alt="candidates"/>
+                            <!-- <img src="{% static "images/Candidate.jpg" %}" alt="candidates"/> -->
                             <div class="caption">
-                                <h2>Products</h2>
+                                
+                                <a href="{% url 'jobs_app:candidate_list'%}"><h2>Candidates</h2></a>
                                 <p>Actively looking for a job.
                                 </p>
                             </div>
@@ -115,9 +32,9 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                     </div>
                     <div class="col-md-3">
                         <div class="thumbnail">
-                            <img src="{% static "images/skillstraining.jpg" %}" alt="lunch"/>
+                            <!-- <img src="{% static "images/skillstraining.jpg" %}" alt="lunch"/> -->
                             <div class="caption">
-                                <h2>Services</h2>
+                                <a href="{% url 'jobs_app:jobs_list'%}"><h2>Skill Training</h2></a>
                                 <p>Providing High quality Training</p>
 
 
@@ -129,7 +46,6 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             {% endblock %}
         </div>
     </div>
-</div>>
-</body>
+</div>
 
-</html>
+{% endblock body_content %}

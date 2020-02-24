@@ -1,0 +1,29 @@
+{% extends 'jobs_app/base.html' %} 
+{% block body_content %}
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Candidate Name</th>
+      <th scope="col">Specialized In</th>
+      <th scope="col">Description</th>
+      <th scope="col">Experience</th>
+      <th scope="col">Tech Known</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for candidate in all_candidates %}
+      
+    <tr>
+      <td>{{candidate.id}}</td>
+      <td>{{candidate.user.full_name}}</td>
+      <td>{{candidate.specializationinProfession}}</td>
+      <td>{{candidate.description}}</td>
+      <td>{{candidate.experience}}</td>
+      <td>{{candidate.technology}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock body_content %}

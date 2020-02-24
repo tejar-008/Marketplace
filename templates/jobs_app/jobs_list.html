@@ -1,0 +1,25 @@
+{% extends 'jobs_app/base.html' %} 
+{% block body_content %}
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Job ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for job in all_jobs %}
+      
+    <tr>
+      <td>{{job.id}}</td>
+      <td>{{job.jobid}}</td>
+      <td>{{job.title}}</td>
+      <td>{{job.description}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock body_content %}
