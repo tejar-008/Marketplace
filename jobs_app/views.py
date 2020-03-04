@@ -13,7 +13,7 @@ from django.shortcuts import (
 from jobs_app.forms import *
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import get_user_model
-User = get_user_model()
+# User = get_user_model()
 
 
 def homepage(request):
@@ -52,6 +52,27 @@ def user_login(request):
         else:
             return render(
                 request, "registration/login.html", {"errors": form.errors}
+            )
+
+
+def user_signup(request):
+    if request.method == "GET":
+        return render(request, "registration/signup.html", {})
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create(
+                email=form.cleaned_data.get("email"),
+                username=form.cleaned_data.get("email"),
+            )
+            user.set_password(form.cleaned_data.get("password"))
+            user.save()
+            login(request, user)
+            return redirect(reverse("jobs_app:homepage",))
+        else:
+            return render(
+                request, "registration/signup.html", {"errors": form.errors}
             )
 
 

@@ -8,13 +8,17 @@
                     <p><strong>About: </strong> {{profile.specializationinProfession}} </p>
                     <p><strong>Hobbies: </strong> Read, out with friends, listen to music, draw and learn new things. </p>
                     <p><strong>Skills: </strong>
-                        <span class="badge badge-primary">html5</span> 
-                        <span class="badge badge-primary">css3</span>
-                        <span class="badge badge-primary">jquery</span>
-                        <span class="badge badge-primary">bootstrap3</span>
+                        {{profile.skills}}
+                        {% for skill in profile.skills.all %}
+                            
+                        <span class="badge badge-primary">{{skill}}</span> 
+                        {% endfor %}
                     </p>
                     <p><strong>Previous Job Roles: </strong>
-                        <span class="tags">html5</span> 
+                        {% for role in job %}
+                        <span class="tags">{{role}}</span> 
+                            
+                        {% endfor %}
                         <span class="tags">css3</span>
                         <span class="tags">jquery</span>
                         <span class="tags">bootstrap3</span>

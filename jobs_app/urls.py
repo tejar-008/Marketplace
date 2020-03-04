@@ -9,6 +9,7 @@ app_name = "jobs_app"
 urlpatterns = [
     path("login/", user_login, name="user_login"),
     path("logout/", user_logout, name="user_logout"),
+    path("signup/", user_signup, name="user_signup"),
     path("", homepage, name="homepage"),
     path("change-password/", change_password, name="change_password"),
     path("jobs/list/", jobs_list, name="jobs_list"),
